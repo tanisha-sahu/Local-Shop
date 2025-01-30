@@ -4,6 +4,7 @@ import StoreCard from "../components/StoreCard.tsx";
 import Navbar from "../components/Navbar.tsx";
 import Carousel from '../components/OfferCanvas.tsx';
 import  LoginPage  from "./LoginPage.tsx";
+import  ShoppingCartPage  from "./ShoppingCartPage.tsx";
 
 interface Store {
   id: string;
@@ -50,18 +51,6 @@ const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
 
   return (
     <>
-      {/* <Navbar />
-      <Carousel />
-      <Container sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          {stores.map((store) => (
-            <Grid item xs={12} sm={6} md={4} key={store.id}>
-              <StoreCard store={store} />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-     <LoginPage/> */}
      <Navbar isLoggedIn={isLoggedIn} onLogin={openLoginModal} onLogout={onLogout} />
       <Carousel />
       <Container sx={{ mt: 3 }}>
@@ -73,7 +62,7 @@ const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
           ))}
         </Grid>
       </Container>
-
+        <ShoppingCartPage />
       {/* Conditionally render the login page modal */}
       {isLoginModalOpen && <LoginPage onLogin={onLogin} onClose={closeLoginModal} />}
     </>
