@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar.tsx";
 import Carousel from '../components/OfferCanvas.tsx';
 import  LoginPage  from "./LoginPage.tsx";
 import  ShoppingCartPage  from "./ShoppingCartPage.tsx";
-
+import ProductList from "./ProductList.tsx";
 interface Store {
   id: string;
   name: string;
@@ -63,6 +63,7 @@ const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
         </Grid>
       </Container>
         <ShoppingCartPage />
+        <ProductList />
       {/* Conditionally render the login page modal */}
       {isLoginModalOpen && <LoginPage onLogin={onLogin} onClose={closeLoginModal} />}
     </>

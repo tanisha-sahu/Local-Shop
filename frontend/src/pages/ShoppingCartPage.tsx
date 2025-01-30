@@ -9,8 +9,9 @@ import {
   TextField,
   Button,
   Box,
+  Divider,
   CircularProgress,
-  // useMediaQuery
+  useMediaQuery
 } from '@mui/material';
 import { Remove, Add, Delete } from '@mui/icons-material';
 
@@ -25,9 +26,41 @@ interface CartItem {
 const ShoppingCartPage: React.FC = () => {
   // Sample cart data
   const initialCart: CartItem[] = [
-    { id: 1, name: "Product 1", price: 20, quantity: 1, image: "/images/product1.jpg" },
-    { id: 2, name: "Product 2", price: 50, quantity: 2, image: "/images/product2.jpg" },
-    { id: 3, name: "Product 3", price: 30, quantity: 1, image: "/images/product3.jpg" }
+      { 
+        id: 1, 
+        name: "Fresh Apples", 
+        price: 3.99, 
+        quantity: 1, 
+        image: "https://5.imimg.com/data5/AK/RA/MY-68428614/apple-500x500.jpg" 
+      },
+      { 
+        id: 2, 
+        name: "Organic Eggs", 
+        price: 4.99, 
+        quantity: 2, 
+        image: "https://m.media-amazon.com/images/I/31ra3zrxejL._AC_UF894,1000_QL80_.jpg" 
+      },
+      { 
+        id: 3, 
+        name: "Whole Wheat Bread", 
+        price: 2.49, 
+        quantity: 1, 
+        image: "https://www.foodandwine.com/thmb/Z2AE53BGYP2U-kXhtbVwXZQX8sc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Perfect-Sandwich-Bread-FT-RECIPE0723-dace53e15a304942acbc880b0ae34f5a.jpg" 
+      },
+      { 
+        id: 4, 
+        name: "Milk (1 Liter)", 
+        price: 1.29, 
+        quantity: 2, 
+        image: "https://5.imimg.com/data5/SP/JB/KZ/SELLER-108598973/fresh-milk1-jpg-500x500.jpg" 
+      },
+      { 
+        id: 5, 
+        name: "Tomatoes (2 Kg)", 
+        price: 5.99, 
+        quantity: 1, 
+        image: "https://m.media-amazon.com/images/I/61ZJhcdG7LL._AC_UF1000,1000_QL80_.jpg" 
+      }, 
   ];
 
   const [cart, setCart] = useState<CartItem[]>(initialCart);
@@ -58,7 +91,7 @@ const ShoppingCartPage: React.FC = () => {
 
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
-//   const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   return (
     <Container maxWidth="lg">
@@ -73,15 +106,16 @@ const ShoppingCartPage: React.FC = () => {
           </Typography>
         ) : (
           <Grid container spacing={3}>
-            {cart.map((item) => (
-              <Grid item xs={12} sm={6} md={4} key={item.id}>
-                <Card variant="outlined">
+            <Grid item xs={12} md={8}>
+              {/* Item List */}
+              {cart.map((item) => (
+                <Card key={item.id} variant="outlined" sx={{ mb: 3 }}>
                   <CardContent>
                     <Grid container spacing={2}>
-                      <Grid item xs={4}>
+                      <Grid item xs={4} sm={3}>
                         <img src={item.image} alt={item.name} style={{ width: '100%', borderRadius: '8px' }} />
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} sm={9}>
                         <Typography variant="h6">{item.name}</Typography>
                         <Typography variant="body1" color="textSecondary">${item.price}</Typography>
 
@@ -113,22 +147,44 @@ const ShoppingCartPage: React.FC = () => {
                     </Grid>
                   </CardContent>
                 </Card>
-              </Grid>
-            ))}
+              ))}
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              {/* Right Side - Bill Receipt */}
+              <Card variant="outlined" sx={{ p: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Order Summary
+                  </Typography>
+                  <Divider sx={{ mb: 2 }} />
+                  <Box display="flex" justifyContent="space-between" mb={1}>
+                    <Typography variant="body1">Subtotal</Typography>
+                    <Typography variant="body1">${totalPrice}</Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="space-between" mb={1}>
+                    <Typography variant="body1">Shipping</Typography>
+                    <Typography variant="body1">Free</Typography>
+                  </Box>
+                  <Divider sx={{ mb: 2 }} />
+                  <Box display="flex" justifyContent="space-between" mb={2}>
+                    <Typography variant="h6">Total</Typography>
+                    <Typography variant="h6">${totalPrice}</Typography>
+                  </Box>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleProceedToPayment}
+                    fullWidth
+                    disabled={loading || cart.length === 0}
+                  >
+                    {loading ? <CircularProgress size={24} color="inherit" /> : 'Proceed to Payment'}
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
         )}
-
-        <Box mt={4} display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">Total: ${totalPrice}</Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleProceedToPayment}
-            disabled={loading || cart.length === 0}
-          >
-            {loading ? <CircularProgress size={24} color="inherit" /> : 'Proceed to Payment'}
-          </Button>
-        </Box>
       </Box>
     </Container>
   );
