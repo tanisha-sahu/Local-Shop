@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Home from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage.tsx"
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage login state
@@ -25,7 +24,6 @@ const App = () => {
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout} />} />
         {/* Define route for LoginPage */}
         <Route path="/login" element={<LoginPage onLogin={handleLogin} onClose={handleLogout}/>} />
-        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </Router>
   );

@@ -16,7 +16,7 @@ const StoreCard = ({ store }: { store: Store }) => {
       alt={store.name}
       sx={{ height: 180 }} // Fixed image height
     />
-    <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "start" }}>
       <Typography variant="h6">{store.name}</Typography>
       <Rating value={store.rating} precision={0.1} readOnly />
     </CardContent>
