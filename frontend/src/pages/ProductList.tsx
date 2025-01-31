@@ -83,7 +83,7 @@ const ProductList: React.FC<{ category: string }> = ({ category }) => {
         justifyContent="flex-start" 
         sx={{ 
           '@media (max-width: 640px)': { // Small screens
-            justifyContent: "center",
+            justifyContent: "flex-start",
           }
         }}
       >

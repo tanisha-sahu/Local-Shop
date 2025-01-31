@@ -14,6 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 interface NavbarProps {
   isLoggedIn: boolean;
@@ -21,8 +22,19 @@ interface NavbarProps {
   onLogout: () => void;
 }
 
-const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
+const Navbar = ({ isLoggedIn, onLogin }: NavbarProps) => {
   const [bottomNavValue, setBottomNavValue] = useState(0);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to handle cart icon click (top navbar)
+  const handleCartClick = () => {
+    navigate("/cart"); // Navigate to the cart route
+  };
+
+  // Function to handle cart click in Bottom Navigation
+  // const handleBottomNavCartClick = () => {
+  //   navigate("/cart"); // Navigate to the cart route
+  // };
 
   return (
     <>
@@ -55,7 +67,7 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
               gap: 1,
               fontSize: "0.9rem",
               color: "#000",
-              maxWidth: "200px", // Adjust width as needed
+              maxWidth: "200px",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
@@ -65,14 +77,14 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
             <Typography
               variant="body2"
               sx={{
-                whiteSpace: "normal", // Allow wrapping
+                whiteSpace: "normal",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 display: "-webkit-box",
-                WebkitBoxOrient: "vertical", // Vertical box orientation
-                WebkitLineClamp: 2, // Default to 2 lines on large screens
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 2,
                 "@media (max-width:600px)": {
-                  WebkitLineClamp: 1, // 1 line on small screens
+                  WebkitLineClamp: 1,
                 },
               }}
             >
@@ -80,6 +92,7 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
             </Typography>
           </Box>
 
+          {/* Search Box */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
@@ -99,7 +112,7 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
             />
           </Box>
 
-          {/* Navigation Icons (Only visible on large screens) */}
+          {/* Navigation Icons */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
@@ -117,7 +130,7 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
                 sx={{
                   display: { xs: "none", md: "flex" },
                   alignItems: "center",
-                  color:"white",
+                  color: "white",
                   backgroundColor: "DodgerBlue",
                   padding: "4px 8px",
                   boxShadow: "0 0 3px blue",
@@ -127,7 +140,8 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
               </Button>
             )}
 
-            <IconButton>
+            {/* Cart Icon with onClick for Top Navbar */}
+            <IconButton onClick={handleCartClick}>
               <ShoppingCartIcon />
               <Box
                 sx={{
@@ -150,33 +164,6 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
             </IconButton>
           </Box>
         </Toolbar>
-        <Box
-          sx={{
-            display: { xs: "block", md: "none" },
-            padding: "8px 16px",
-            backgroundColor: "#f1f1f1",
-          }}
-        >
-          {/* Full InputBox on Small Screens */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              borderRadius: "8px",
-              padding: "4px 8px",
-              maxWidth: "400px",
-              width: "100%",
-              boxShadow: "0px -2px 4px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <SearchIcon fontSize="small" sx={{ color: "#757575" }} />
-            <InputBase
-              placeholder="Search for 'apple juice'"
-              sx={{ ml: 1, flex: 1, fontSize: "0.9rem" }}
-            />
-          </Box>
-        </Box>
       </AppBar>
 
       {/* Bottom Navigation for Small Screens */}
@@ -202,6 +189,7 @@ const Navbar = ({ isLoggedIn, onLogin, onLogout }: NavbarProps) => {
           label="Cart"
           icon={<ShoppingCartIcon />}
           sx={{ color: bottomNavValue === 1 ? "#7e22ce" : "#757575" }}
+          onClick={handleCartClick} // Add onClick here
         />
       </BottomNavigation>
     </>

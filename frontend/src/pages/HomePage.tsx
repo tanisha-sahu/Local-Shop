@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import StoreCard from "../components/StoreCard.tsx";
 import Navbar from "../components/Navbar.tsx";
 import Carousel from '../components/OfferCanvas.tsx';
-import  LoginPage  from "./LoginPage.tsx";
-import  ShoppingCartPage  from "./ShoppingCartPage.tsx";
-import ProductList from "./ProductList.tsx";
+import LoginPage from "./LoginPage.tsx";
+import CheckoutPage from "./CheckoutPage.tsx";
+
 interface Store {
   id: string;
   name: string;
   image: string;
-  rating: number; // Added rating property
+  rating: number;
 }
 
 interface HomeProps {
@@ -21,7 +22,8 @@ interface HomeProps {
 
 const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
   const [stores, setStores] = useState<Store[]>([]);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); 
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const sampleStores: Store[] = [
     { "id": "1", "name": "Fresh Mart", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc6DyOHLsghI9lFalg73Q9FoxQv6UwVEQIeA&s", "rating": 2.5 },
@@ -34,9 +36,8 @@ const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
     { "id": "8", "name": "Local Mart", "image": "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1024,h_536/https://7heven.com/wp-content/uploads/2023/06/7-Heven.jpg", "rating": 3.8 },
     { "id": "9", "name": "Organic Fresh", "image": "https://c8.alamy.com/comp/T49C6D/american-candy-shop-in-oxford-street-sells-american-sweets-not-usually-easily-available-in-the-uk-T49C6D.jpg", "rating": 4.6 },
     { "id": "10", "name": "City Supermarket", "image": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2022-07/220719-american-candy-mb-1055-95daf7.jpg", "rating": 4.1 }
-
   ];
-  
+
   useEffect(() => {
     setStores(sampleStores);
   }, []);
@@ -49,21 +50,29 @@ const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
     setIsLoginModalOpen(false); // Close the login modal
   };
 
+  // Handle store click event
+  const handleStoreClick = () => {
+    navigate("/store"); // Navigate to the /store route with the storeId
+  };
+
   return (
     <>
-     <Navbar isLoggedIn={isLoggedIn} onLogin={openLoginModal} onLogout={onLogout} />
+      <Navbar isLoggedIn={isLoggedIn} onLogin={openLoginModal} onLogout={onLogout} />
       <Carousel />
       <Container sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {stores.map((store) => (
             <Grid item xs={12} sm={6} md={4} key={store.id}>
-              <StoreCard store={store} />
+              <div onClick={() => handleStoreClick()}
+                style={{ cursor: 'pointer' }}
+                >
+                <StoreCard store={store} />
+              </div>
             </Grid>
           ))}
         </Grid>
       </Container>
-        <ShoppingCartPage />
-        <ProductList />
+      <CheckoutPage/>
       {/* Conditionally render the login page modal */}
       {isLoginModalOpen && <LoginPage onLogin={onLogin} onClose={closeLoginModal} />}
     </>

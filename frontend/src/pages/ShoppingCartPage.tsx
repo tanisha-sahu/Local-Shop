@@ -11,7 +11,6 @@ import {
   Box,
   Divider,
   CircularProgress,
-  useMediaQuery
 } from '@mui/material';
 import { Remove, Add, Delete } from '@mui/icons-material';
 
@@ -90,8 +89,6 @@ const ShoppingCartPage: React.FC = () => {
   };
 
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
-
-  const isMobile = useMediaQuery('(max-width:600px)');
 
   return (
     <Container maxWidth="lg">

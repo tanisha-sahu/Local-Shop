@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Home from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage";
+import ProductList from "./pages/ProductList.tsx"
+import ShoppingCartPage from "./pages/ShoppingCartPage.tsx";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage login state
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout} />} />
         {/* Define route for LoginPage */}
         <Route path="/login" element={<LoginPage onLogin={handleLogin} onClose={handleLogout}/>} />
+        <Route path = "/store" element={<ProductList/>}/>
+        <Route path = "/cart" element={<ShoppingCartPage/>}/>
       </Routes>
     </Router>
   );
