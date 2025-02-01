@@ -4,6 +4,8 @@ import Home from "./pages/HomePage.tsx";
 import LoginPage from "./pages/LoginPage";
 import ProductList from "./pages/ProductList.tsx"
 import ShoppingCartPage from "./pages/ShoppingCartPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import CheckoutPage from "./pages/CheckoutPage.tsx";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage login state
@@ -28,6 +30,8 @@ const App = () => {
         <Route path="/login" element={<LoginPage onLogin={handleLogin} onClose={handleLogout}/>} />
         <Route path = "/store" element={<ProductList/>}/>
         <Route path = "/cart" element={<ShoppingCartPage/>}/>
+        <Route path = "/profile" element={<ProfilePage/>}/>
+        <Route path = "/checkout" element={<CheckoutPage/>} />
       </Routes>
     </Router>
   );

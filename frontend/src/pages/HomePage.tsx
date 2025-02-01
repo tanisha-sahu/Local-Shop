@@ -73,7 +73,6 @@ const Home = ({ isLoggedIn, onLogin, onLogout }: HomeProps) => {
           ))}
         </Grid>
       </Container>
-      <ProfilePage/>
       <CheckoutPage />
       {/* Conditionally render the login page modal */}
       {isLoginModalOpen && <LoginPage onLogin={onLogin} onClose={closeLoginModal} />}

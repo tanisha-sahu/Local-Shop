@@ -13,6 +13,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { Remove, Add, Delete } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 interface CartItem {
   id: number;
@@ -79,12 +80,14 @@ const ShoppingCartPage: React.FC = () => {
     setCart(cart.filter(item => item.id !== id));
   };
 
+  const navigate = useNavigate(); 
+
   const handleProceedToPayment = (): void => {
     setLoading(true);
     // Simulate payment processing
     setTimeout(() => {
       setLoading(false);
-      alert("Payment Successful!");
+      navigate("/checkout")
     }, 2000);
   };
 

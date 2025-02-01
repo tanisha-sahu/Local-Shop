@@ -31,6 +31,10 @@ const Navbar = ({ isLoggedIn, onLogin }: NavbarProps) => {
     navigate("/cart"); // Navigate to the cart route
   };
 
+  const handleProfileClick = () => {
+    navigate("/profile"); // Navigate to the cart route
+  };
+
   // Function to handle cart click in Bottom Navigation
   // const handleBottomNavCartClick = () => {
   //   navigate("/cart"); // Navigate to the cart route
@@ -122,7 +126,9 @@ const Navbar = ({ isLoggedIn, onLogin }: NavbarProps) => {
           >
             {isLoggedIn ? (
               <IconButton>
-                <PersonIcon />
+                <PersonIcon 
+                onClick={handleProfileClick}
+                />
               </IconButton>
             ) : (
               <Button
@@ -184,6 +190,7 @@ const Navbar = ({ isLoggedIn, onLogin }: NavbarProps) => {
           label="Profile"
           icon={<PersonIcon />}
           sx={{ color: bottomNavValue === 0 ? "#7e22ce" : "#757575" }}
+          onClick={handleProfileClick}
         />
         <BottomNavigationAction
           label="Cart"
